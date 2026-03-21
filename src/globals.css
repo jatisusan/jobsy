@@ -21,8 +21,14 @@
   --font-anton: "Anton", sans-serif;
 }
 
+@utility root-container {
+  @apply max-w-7xl mx-auto px-4;
+}
+
 @layer base {
   body {
     @apply font-primary;
   }
 }
+
+

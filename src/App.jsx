@@ -1,10 +1,15 @@
+import { Outlet } from "react-router";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 const App = () => {
   return (
-    <div className="bg-bg">
-      <h1 className="text-red-400 text-xl">Jobsy</h1>
+    <div className="root-container">
+      <Navbar />
+      <Outlet />
+      <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
