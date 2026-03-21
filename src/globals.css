@@ -1,0 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --color-bg-100: #f8f9ff;
+  --color-bg-200: #f0f2ff;
+
+  --color-blue-100: #93a1ff;
+  --color-blue-200: #7b8cff;
+
+  --color-violet-100: #bc66ff;
+  --color-violet-200: #a855f7;
+
+  --color-dark-100: #020204;
+
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-muted: #94a3b8;
+
+  --font-primary: "Plus Jakarta Sans", sans-serif;
+  --font-anton: "Anton", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply font-primary;
+  }
+}
