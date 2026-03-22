@@ -2,7 +2,7 @@ import { features } from "../constants";
 
 const Features = () => {
   return (
-    <section className="bg-white p-10 my-32 rounded-xl flex flex-wrap gap-16 lg:gap-28 justify-center">
+    <section className="bg-bg-300 p-10 my-32 rounded-4xl flex flex-wrap gap-16 lg:gap-28 justify-center">
       {features.map((feature, idx) => (
         <div
           key={idx}

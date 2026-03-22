@@ -4,6 +4,7 @@
 @theme {
   --color-bg-100: #f8f9ff;
   --color-bg-200: #f0f2ff;
+  --color-bg-300: #ffffff;
 
   --color-primary-100: #93a1ff;
   --color-primary-200: #7e90fe;
@@ -11,6 +12,7 @@
   --color-accent-100: #bc66ff;
   --color-accent-200: #8e7efe;
 
+  --color-bg-inverted: #020204;
   --color-dark-100: #020204;
 
   --color-text-primary: #0f172a;
@@ -30,16 +32,16 @@
 }
 
 @utility hero-line {
-  @apply absolute bottom-0 right-0 w-[50%] bg-dark-100 h-2 max-sm:hidden;
+  @apply absolute bottom-0 right-0 w-[50%] bg-bg-inverted h-2 max-sm:hidden z-10;
 
   &::before {
     content: "";
-    @apply absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 w-6 h-6 bg-dark-100 rotate-45;
+    @apply absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 w-6 h-6 bg-bg-inverted rotate-45;
   }
 }
 
 @utility round-gradient {
-  @apply bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.2)_0%,rgba(147,216,255,0.5)_10%,rgba(123,145,255,0.8)_50%,rgba(157,99,255,0.9)_100%)];
+  @apply bg-[radial-gradient(circle_at_30%_30%,rgb(255,255,255)_0%,rgb(147,216,255)_10%,rgba(123,145,255,0.8)_50%,rgba(157,99,255,0.9)_100%)];
 }
 
 @utility btn-primary {
@@ -47,7 +49,25 @@
 }
 
 @layer base {
+  :root.dark {
+    --color-bg-100: #0b1020;
+    --color-bg-200: #141b2f;
+    --color-bg-300: #020204;
+
+    --color-primary-100: #7b8cff;
+    --color-primary-200: #93a1ff;
+
+    --color-accent-100: #c58bff;
+    --color-accent-200: #8ea1ff;
+
+    --color-bg-inverted: #f8f9ff;
+
+    --color-text-primary: #e2e8f0;
+    --color-text-secondary: #cbd5e1;
+    --color-text-muted: #94a3b8;
+  }
+
   body {
-    @apply font-primary bg-bg-100;
+    @apply font-primary bg-bg-100 text-text-primary transition-colors duration-400 ease-in-out;
   }
 }

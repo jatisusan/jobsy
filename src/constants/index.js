@@ -30,25 +30,25 @@ export const footerLinks = [
   {
     title: "Company",
     links: [
-      { name: "About Us", path: "/about" },
-      { name: "Careers", path: "/careers" },
-      { name: "Contact", path: "/contact" },
+      { name: "About Us", path: "/" },
+      { name: "Careers", path: "/" },
+      { name: "Contact", path: "/" },
     ],
   },
   {
     title: "Resources",
     links: [
-      { name: "Privacy Policy", path: "/privacy" },
-      { name: "Help Center", path: "/help" },
-      { name: "Our Blog", path: "/blog" },
+      { name: "Privacy Policy", path: "/" },
+      { name: "Help Center", path: "/" },
+      { name: "Our Blog", path: "/" },
     ],
   },
   {
     title: "Follow Us",
     links: [
-      { name: "Facebook", path: "https://facebook.com" },
-      { name: "LinkedIn", path: "https://linkedin.com" },
-      { name: "Twitter", path: "https://twitter.com" },
+      { name: "Facebook", path: "/" },
+      { name: "LinkedIn", path: "/" },
+      { name: "Twitter", path: "/" },
     ],
   },
 ];

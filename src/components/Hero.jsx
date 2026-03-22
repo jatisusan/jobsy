@@ -19,7 +19,7 @@ const Hero = () => {
           opportunities.
         </p>
 
-        <div className=" border-2 border-dark-100 rounded-full py-4 pl-6 md:pr-12 pr-6 flex items-center gap-4 w-fit">
+        <div className=" border-2 border-bg-inverted rounded-full py-4 pl-6 md:pr-12 pr-6 flex items-center gap-4 w-fit">
           <div className="flex items-center">
             <div className="border-2 rounded-full md:w-16 md:h-16 w-12 h-12  z-10">
               <img
