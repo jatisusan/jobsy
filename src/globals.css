@@ -1,34 +1,53 @@
-@import url("https://fonts.googleapis.com/css2?family=Anton&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
 @import "tailwindcss";
 
 @theme {
   --color-bg-100: #f8f9ff;
   --color-bg-200: #f0f2ff;
 
-  --color-blue-100: #93a1ff;
-  --color-blue-200: #7b8cff;
+  --color-primary-100: #93a1ff;
+  --color-primary-200: #7e90fe;
 
-  --color-violet-100: #bc66ff;
-  --color-violet-200: #a855f7;
+  --color-accent-100: #bc66ff;
+  --color-accent-200: #8e7efe;
 
   --color-dark-100: #020204;
 
   --color-text-primary: #0f172a;
   --color-text-secondary: #475569;
-  --color-text-muted: #94a3b8;
+  --color-text-muted: #475569;
 
   --font-primary: "Plus Jakarta Sans", sans-serif;
-  --font-anton: "Anton", sans-serif;
+  --font-bebas-neue: "Bebas Neue", cursive;
 }
 
 @utility root-container {
-  @apply max-w-7xl mx-auto px-4;
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+@utility strip-gradient {
+  @apply bg-linear-to-b from-primary-200 to-accent-200 rounded-[26px] p-[20px_10px] flex items-center justify-center;
+}
+
+@utility hero-line {
+  @apply absolute bottom-0 right-0 w-[50%] bg-dark-100 h-2 max-sm:hidden;
+
+  &::before {
+    content: "";
+    @apply absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 w-6 h-6 bg-dark-100 rotate-45;
+  }
+}
+
+@utility round-gradient {
+  @apply bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.2)_0%,rgba(147,216,255,0.5)_10%,rgba(123,145,255,0.8)_50%,rgba(157,99,255,0.9)_100%)];
+}
+
+@utility btn-primary {
+  @apply strip-gradient text-white font-bebas-neue text-xl py-2.5 px-6 rounded-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg cursor-pointer w-fit;
 }
 
 @layer base {
   body {
-    @apply font-primary;
+    @apply font-primary bg-bg-100;
   }
 }
-
-
