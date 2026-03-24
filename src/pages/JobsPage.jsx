@@ -91,7 +91,10 @@ const JobsPage = () => {
           ) : filteredJobs.length > 0 ? (
             <JobsList jobs={filteredJobs} />
           ) : (
-            <NoJobsFound />
+            <NoJobsFound 
+              title="No jobs found"
+              message="We couldn't find any jobs matching your criteria."
+            />
           )}
           {!debouncedQuery && !isLoading && filteredJobs.length > 0 && (
             <Pagination

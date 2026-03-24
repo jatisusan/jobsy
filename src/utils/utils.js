@@ -64,3 +64,8 @@ export const isJobSaved = (jobId) => {
   const savedJobs = JSON.parse(localStorage.getItem("savedJobs")) || [];
   return savedJobs.includes(jobId);
 };
+
+export const getSavedJobs = () => {
+  const savedJobs = JSON.parse(localStorage.getItem("savedJobs")) || [];
+  return savedJobs;
+}

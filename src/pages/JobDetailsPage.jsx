@@ -49,7 +49,10 @@ const JobDetailsPage = () => {
           again."
         />
       ) : !jobInfo ? (
-        <NoJobsFound />
+        <NoJobsFound
+          title="Job not found"
+          message="The job you are looking for does not exist or has been removed."
+        />
       ) : (
         <div className="space-y-6">
           <header className="rounded-2xl border border-primary-100/25 bg-linear-to-br from-bg-400 to-bg-300 p-5 shadow-sm sm:p-7">
