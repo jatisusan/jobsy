@@ -3,39 +3,19 @@ import Filters from "../components/Filters";
 import JobsList from "../components/JobsList";
 import SearchBar from "../components/SearchBar";
 import { fetchJobs } from "../utils/api";
-
-// const isRemoteJob = (job) => {
-//   const locationText = (job.locations || [])
-//     .map((location) => location?.name || "")
-//     .join(" ")
-//     .toLowerCase();
-
-//   return /(remote|work from home|anywhere|worldwide|flexible)/.test(
-//     locationText,
-//   );
-// };
-
-// const isWithinDays = (publicationDate, days) => {
-//   if (!publicationDate) return false;
-
-//   const postedAt = new Date(publicationDate);
-//   if (Number.isNaN(postedAt.getTime())) return false;
-
-//   const now = new Date();
-//   const ageInMs = now.getTime() - postedAt.getTime();
-//   const maxAgeInMs = days * 24 * 60 * 60 * 1000;
-
-//   return ageInMs <= maxAgeInMs;
-// };
+import { useDebounce } from "use-debounce";
 
 const JobsPage = () => {
   const [jobs, setJobs] = useState([]);
+
+  const [query, setQuery] = useState("");
+
+  const [debouncedQuery] = useDebounce(query, 500);
 
   const [selectedFilters, setSelectedFilters] = useState({
     level: [],
     category: [],
     location: [],
-    postedWithin: [],
   });
 
   const toggleFilter = (groupKey, value) => {
@@ -57,7 +37,6 @@ const JobsPage = () => {
       level: [],
       category: [],
       location: [],
-      postedWithin: [],
     });
 
   useEffect(() => {
@@ -72,7 +51,10 @@ const JobsPage = () => {
     loadJobs();
   }, [selectedFilters]);
 
-  console.log(jobs);
+  const normalizedQuery = debouncedQuery.trim().toLowerCase();
+  const filteredJobs = normalizedQuery
+    ? jobs.filter((job) => job.name.toLowerCase().includes(normalizedQuery))
+    : jobs;
 
   return (
     <div className="w-full mt-4 flex gap-6">
@@ -85,10 +67,10 @@ const JobsPage = () => {
       </div>
 
       <div className="w-3/4">
-        <SearchBar />
+        <SearchBar query={query} setQuery={setQuery} />
         <h2 className="text-xl font-bold my-4 ml-2">Job Listings</h2>
         <div className=" w-full bg-bg-300 rounded-xl p-4">
-          <JobsList jobs={jobs} />
+          <JobsList jobs={filteredJobs} />
         </div>
       </div>
     </div>

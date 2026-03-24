@@ -1,7 +1,9 @@
 const BASE_URL = "https://www.themuse.com/api/public/jobs";
 
-
-export const fetchJobs = async ({ page = 1, filters = {} } = {}) => {
+export const fetchJobs = async ({
+  page = 1,
+  filters = {},
+} = {}) => {
   try {
     const params = new URLSearchParams();
     params.set("page", String(page));
@@ -14,7 +16,10 @@ export const fetchJobs = async ({ page = 1, filters = {} } = {}) => {
       });
     });
 
-    const response = await fetch(`${BASE_URL}?${params.toString()}&descending=true`);
+
+    const response = await fetch(
+      `${BASE_URL}?${params.toString()}&descending=true`,
+    );
     const data = await response.json();
     return data.results || [];
   } catch (error) {
