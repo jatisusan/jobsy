@@ -5,9 +5,12 @@ import SearchBar from "../components/SearchBar";
 import Pagination from "../components/Pagination";
 import { fetchJobs } from "../utils/api";
 import { useDebounce } from "use-debounce";
+import Loading from "../components/Loading";
+import NoJobsFound from "../components/NoJobsFound";
 
 const JobsPage = () => {
   const [jobs, setJobs] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
@@ -51,6 +54,7 @@ const JobsPage = () => {
 
   useEffect(() => {
     const loadJobs = async () => {
+      setIsLoading(true);
       const data = await fetchJobs({
         page: currentPage,
         filters: selectedFilters,
@@ -58,6 +62,7 @@ const JobsPage = () => {
 
       setJobs(data.results);
       setTotalPages(data.totalPages);
+      setIsLoading(false);
     };
 
     loadJobs();
@@ -82,8 +87,14 @@ const JobsPage = () => {
         <SearchBar query={query} setQuery={setQuery} />
         <h2 className="text-xl font-bold my-4 ml-2">Job Listings</h2>
         <div className=" w-full bg-bg-300 rounded-xl p-4">
-          <JobsList jobs={filteredJobs} />
-          {!debouncedQuery && (
+          {isLoading ? (
+            <Loading />
+          ) : filteredJobs.length > 0 ? (
+            <JobsList jobs={filteredJobs} />
+          ) : (
+            <NoJobsFound />
+          )}
+          {!debouncedQuery && !isLoading && filteredJobs.length > 0 && (
             <Pagination
               currentPage={currentPage}
               totalPages={totalPages}
