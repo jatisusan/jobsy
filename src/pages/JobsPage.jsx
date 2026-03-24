@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Filters from "../components/Filters";
 import JobsList from "../components/JobsList";
 import SearchBar from "../components/SearchBar";
@@ -7,12 +7,11 @@ import { fetchJobs } from "../utils/api";
 import { useDebounce } from "use-debounce";
 import Loading from "../components/Loading";
 import NoJobsFound from "../components/NoJobsFound";
+import { useFetch } from "../hooks/useFetch";
+import ErrorMessage from "../components/ErrorMessage";
 
 const JobsPage = () => {
-  const [jobs, setJobs] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
 
   const [query, setQuery] = useState("");
 
@@ -52,21 +51,14 @@ const JobsPage = () => {
     setCurrentPage(page);
   };
 
-  useEffect(() => {
-    const loadJobs = async () => {
-      setIsLoading(true);
-      const data = await fetchJobs({
-        page: currentPage,
-        filters: selectedFilters,
-      });
+  const { data, isLoading, error } = useFetch(
+    fetchJobs,
+    { page: currentPage, filters: selectedFilters },
+    [currentPage, selectedFilters],
+  );
 
-      setJobs(data.results);
-      setTotalPages(data.totalPages);
-      setIsLoading(false);
-    };
-
-    loadJobs();
-  }, [selectedFilters, currentPage]);
+  const jobs = data?.results || [];
+  const totalPages = data?.totalPages || 1;
 
   const normalizedQuery = debouncedQuery.trim().toLowerCase();
   const filteredJobs = normalizedQuery
@@ -74,8 +66,8 @@ const JobsPage = () => {
     : jobs;
 
   return (
-    <div className="w-full mt-4 flex gap-6">
-      <div className="w-1/4 bg-bg-300 rounded-2xl p-4">
+    <div className="mt-4 flex w-full flex-col gap-4 lg:flex-row lg:gap-6">
+      <div className="w-full rounded-2xl bg-bg-300 p-3 sm:p-4 lg:w-1/4">
         <Filters
           selectedFilters={selectedFilters}
           toggleFilter={toggleFilter}
@@ -83,12 +75,19 @@ const JobsPage = () => {
         />
       </div>
 
-      <div className="w-3/4">
+      <div className="w-full lg:w-3/4">
         <SearchBar query={query} setQuery={setQuery} />
-        <h2 className="text-xl font-bold my-4 ml-2">Job Listings</h2>
-        <div className=" w-full bg-bg-300 rounded-xl p-4">
+        <h2 className="my-4 ml-1 text-lg font-bold sm:ml-2 sm:text-xl">
+          Job Listings
+        </h2>
+        <div className="w-full rounded-xl bg-bg-300 p-3 sm:p-4">
           {isLoading ? (
-            <Loading />
+            <Loading
+              title="Loading jobs..."
+              message="Please wait while we fetch the latest job listings for you."
+            />
+          ) : error ? (
+            <ErrorMessage message="Failed to load jobs. Please try again later." />
           ) : filteredJobs.length > 0 ? (
             <JobsList jobs={filteredJobs} />
           ) : (

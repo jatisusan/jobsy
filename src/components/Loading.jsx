@@ -1,6 +1,6 @@
 import { CiSearch } from "react-icons/ci";
 
-const Loading = () => {
+const Loading = ({title, message}) => {
   return (
     <div className="flex min-h-56 items-center justify-center px-3 py-6">
       <div className="w-full max-w-md">
@@ -9,10 +9,10 @@ const Loading = () => {
         </div>
 
         <p className="text-center text-base font-bold text-text-primary">
-          Finding the best jobs for you
+          {title}
         </p>
         <p className="mt-1 text-center text-sm text-text-secondary">
-          Applying filters and fetching results...
+          {message}
         </p>
 
         <div className="mt-5 space-y-2 flex flex-col items-center justify-center">

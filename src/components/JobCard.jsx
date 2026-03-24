@@ -1,49 +1,31 @@
 import { CiCalendarDate, CiLocationOn } from "react-icons/ci";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
 import { Link } from "react-router";
-
-// const stripHtml = (html = "") =>
-//   html
-//     .replace(/<[^>]*>/g, "")
-//     .replace(/\s+/g, " ")
-//     .trim();
-
-const stripHtml = (html = "") => {
-  const doc = new DOMParser().parseFromString(html, "text/html");
-  return doc.body.textContent.replace(/\s+/g, " ").trim();
-};
-
-const formatDate = (value) => {
-  if (!value) return "Date unavailable";
-
-  const parsed = new Date(value);
-  if (Number.isNaN(parsed.getTime())) return "Date unavailable";
-
-  return parsed.toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  });
-};
+import { extractJobInfo } from "../utils/utils";
 
 const JobCard = ({ job }) => {
-  const companyName = job.company?.name || "Confidential company";
-  const locationName = job.locations?.[0]?.name || "Remote / Flexible";
-  const levelName = job.levels?.[0]?.name || "Experience level not specified";
-  const postedDate = formatDate(job.publication_date);
-  const categoryName = job.categories?.[0]?.name || "Others";
-  const description = stripHtml(job.contents);
-  const summary = description.slice(0, 180);
-  const applyUrl = job.refs?.landing_page;
+  const {
+    name,
+    companyName,
+    locationName,
+    levelName,
+    postedDate,
+    categoryName,
+    description,
+    summary,
+  } = extractJobInfo(job);
 
   return (
     <article className="group rounded-2xl border border-primary-100/20 bg-bg-400 p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
       <div className="flex items-start justify-between gap-3">
-        <h3 className="text-lg font-extrabold leading-snug text-text-primary sm:text-xl">
-          {job.name}
+        <h3 className="flex-1 text-lg font-extrabold leading-snug text-text-primary sm:text-xl">
+          {name}
         </h3>
         {categoryName && (
-          <span className="shrink-0 rounded-full bg-primary-200/15 px-3 py-1 text-xs font-semibold text-primary-200">
+          <span
+            title={categoryName}
+            className="max-w-42 truncate rounded-full bg-primary-200/15 px-3 py-1 text-xs font-semibold text-primary-200 sm:max-w-56"
+          >
             {categoryName}
           </span>
         )}
@@ -80,10 +62,7 @@ const JobCard = ({ job }) => {
       )}
 
       <div className="mt-5 flex items-center justify-end">
-        <Link
-          to={applyUrl || "#"}
-          className="rounded-xl bg-primary-200 px-4 py-2 text-sm font-semibold text-white transition-colors duration-300 hover:bg-primary-100"
-        >
+        <Link to={`/jobs/${job.id}`} className="btn-secondary">
           View Details
         </Link>
       </div>

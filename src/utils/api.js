@@ -16,6 +16,11 @@ export const fetchJobs = async ({ page = 1, filters = {} } = {}) => {
     const response = await fetch(
       `${BASE_URL}?${params.toString()}&descending=true`,
     );
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch job: ${response.statusText}`);
+    }
+
     const data = await response.json();
     return {
       results: data.results || [],
@@ -24,6 +29,20 @@ export const fetchJobs = async ({ page = 1, filters = {} } = {}) => {
     };
   } catch (error) {
     console.error("Error fetching jobs:", error);
-    return { results: [], page: 1, totalPages: 1 };
+    throw error;
+  }
+};
+
+export const fetchJobById = async (id) => {
+  try {
+    const response = await fetch(`${BASE_URL}/${id}`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch job: ${response.statusText}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching job details:", error);
+    throw error;
   }
 };

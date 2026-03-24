@@ -6,8 +6,8 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import HomePage from "./pages/HomePage.jsx";
 import JobsPage from "./pages/JobsPage.jsx";
 import SavedPage from "./pages/SavedPage.jsx";
-import ApplicationsPage from "./pages/ApplicationsPage.jsx";
 import { ThemeProvider } from "./context/ThemeContext.jsx";
+import JobDetailsPage from "./pages/JobDetailsPage.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -18,7 +18,7 @@ createRoot(document.getElementById("root")).render(
             <Route index element={<HomePage />} />
             <Route path="/jobs" element={<JobsPage />} />
             <Route path="/saved" element={<SavedPage />} />
-            <Route path="/applications" element={<ApplicationsPage />} />
+            <Route path="/jobs/:id" element={<JobDetailsPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
