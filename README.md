@@ -1,16 +1,71 @@
-# React + Vite
+# Jobsy - Job Finder App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Screenshot](/public//banner.webp)
 
-Currently, two official plugins are available:
+Jobsy is a modern job discovery app built with React and Vite. It lets users browse opportunities from The Muse API, filter by experience/location/category, view full job details, and save interesting jobs for later.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+- Browse job listings fetched from The Muse Jobs API.
+- View detailed job information including description, company, location, experience level, posting date, etc.
+- Multi-select filters for experience level, location, and category.
+- Optimized job search with debounced input.
+- Pagination to navigate through multiple pages of job listings.
+- Save and unsave jobs with persistence in local storage.
+- Light and dark theme support with user preference persistence.
+- Clean and modern UI built with Tailwind CSS.
+- Responsive UI optimized for desktop and mobile devices.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
 
-## Expanding the ESLint configuration
+- React 19
+- Vite
+- React Router
+- Tailwind CSS 4
+- react-icons
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- npm 9+
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/jatisusan/jobsy.git
+```
+
+### Installation
+
+```bash
+cd jobsy
+npm install
+```
+
+### Run in Development
+
+```bash
+npm run dev
+```
+
+Open the local URL shown in your terminal (typically `http://localhost:5173`).
+
+## Data Source
+
+This app uses The Muse public jobs API:
+
+- List endpoint: `https://www.themuse.com/api/public/jobs`
+- Details endpoint: `https://www.themuse.com/api/public/jobs/:id`
+
+Filtering is applied via query params (`level`, `location`, `category`).
+
+## State and Persistence
+
+- Theme preference is saved under `appTheme` in local storage.
+- Saved jobs are stored under `savedJobs` in local storage.
+
+## Notes
+
+- The app currently uses local storage for bookmarks (no backend auth or sync).
