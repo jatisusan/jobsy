@@ -31,7 +31,7 @@ const JobCard = ({ job }) => {
   const locationName = job.locations?.[0]?.name || "Remote / Flexible";
   const levelName = job.levels?.[0]?.name || "Experience level not specified";
   const postedDate = formatDate(job.publication_date);
-  const categoryName = job.categories?.[0]?.name;
+  const categoryName = job.categories?.[0]?.name || "Others";
   const description = stripHtml(job.contents);
   const summary = description.slice(0, 180);
   const applyUrl = job.refs?.landing_page;
