@@ -12,11 +12,17 @@ const Navbar = () => {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const logoSrc = isHome || isDark ? "/logo-white.png" : "/logo-black.png";
+  const logoSrc = isHome
+    ? "/logo-white.png"
+    : isDark
+      ? "/logo-white.webp"
+      : "/logo-black.webp";
 
   return (
-    <div className="flex justify-between items-start pt-4 pb-2 z-10 relative">
-      <div className="flex justify-center items-center w-18 h-18 sm:w-24 sm:h-24 shrink-0">
+    <nav className={`flex justify-between ${isHome ? "items-start" : "items-center"} pt-4 pb-2 z-10 relative`}>
+      <div
+        className={`flex justify-center items-center shrink-0 ${isHome ? "w-18 h-18 sm:w-24 sm:h-24" : "w-12 h-12"}`}
+      >
         <img
           src={logoSrc}
           alt="logo"
@@ -58,7 +64,7 @@ const Navbar = () => {
           </div>
         )}
       </div>
-    </div>
+    </nav>
   );
 };
 

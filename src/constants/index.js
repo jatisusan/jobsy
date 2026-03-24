@@ -52,3 +52,31 @@ export const footerLinks = [
     ],
   },
 ];
+
+export const filterOptions = [
+  {
+    title: "Experience",
+    options: [
+      { name: "Internship", value: "intern" },
+      { name: "Entry Level", value: "entry" },
+      { name: "Mid Level", value: "mid" },
+      { name: "Senior Level", value: "senior" },
+    ],
+  },
+  {
+    title: "Location",
+    options: [
+      { name: "Remote", value: "remote" },
+      { name: "On-site", value: "onsite" },
+    ],
+  },
+  {
+    title: "Posted Within",
+    options: [
+      { name: "24 hours", value: "1d" },
+      { name: "3 days", value: "3d" },
+      { name: "7 days", value: "7d" },
+      { name: "30 days", value: "30d" },
+    ],
+  },
+];
