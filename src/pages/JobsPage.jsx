@@ -2,11 +2,14 @@ import { useEffect, useState } from "react";
 import Filters from "../components/Filters";
 import JobsList from "../components/JobsList";
 import SearchBar from "../components/SearchBar";
+import Pagination from "../components/Pagination";
 import { fetchJobs } from "../utils/api";
 import { useDebounce } from "use-debounce";
 
 const JobsPage = () => {
   const [jobs, setJobs] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   const [query, setQuery] = useState("");
 
@@ -30,26 +33,35 @@ const JobsPage = () => {
           : [...currentValues, value],
       };
     });
+    setCurrentPage(1);
   };
 
-  const clearAll = () =>
+  const clearAll = () => {
     setSelectedFilters({
       level: [],
       category: [],
       location: [],
     });
+    setCurrentPage(1);
+  };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
 
   useEffect(() => {
     const loadJobs = async () => {
       const data = await fetchJobs({
+        page: currentPage,
         filters: selectedFilters,
       });
 
-      setJobs(data);
+      setJobs(data.results);
+      setTotalPages(data.totalPages);
     };
 
     loadJobs();
-  }, [selectedFilters]);
+  }, [selectedFilters, currentPage]);
 
   const normalizedQuery = debouncedQuery.trim().toLowerCase();
   const filteredJobs = normalizedQuery
@@ -71,6 +83,13 @@ const JobsPage = () => {
         <h2 className="text-xl font-bold my-4 ml-2">Job Listings</h2>
         <div className=" w-full bg-bg-300 rounded-xl p-4">
           <JobsList jobs={filteredJobs} />
+          {!debouncedQuery && (
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+            />
+          )}
         </div>
       </div>
     </div>
